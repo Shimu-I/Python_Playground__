@@ -1539,7 +1539,7 @@ print(fruits)
 
 fruits_chars = [fruit[0] for fruit in fruits]
 print(fruits_chars)
-'''
+
 
 numbers = [1, 2, 3, -4, 5, -6, 8, -7]
 positive_nums = [num for num in numbers if num >= 0]
@@ -1554,9 +1554,71 @@ print(odd_nums)
 
 #----Exercise
 
+grades = [85, 42, 79, 90, 56, 61, 30]
+passing_grade = [grade for grade in grades if grade >= 60]
+print(passing_grade)
+'''
+
+########################################################
+# Lesson 38: Match-case Statement (switch)
+'''
+An alternative to using many 'elif' statements
+Execute some code if a value matches a 'case' Benefits: cleaner and syntax in more readable.
+'''
+
+'''
+def day_of_week(day):
+    if day == 1:
+        return "It is Sunday."
+    elif day == 2:
+        return "It is Monday."
+    elif day == 3:
+        return "It is Tuesday."
+    elif day == 4:
+        return "It is Wednesday."
+    elif day == 5:
+        return "It is Thursday."
+    elif day == 6:
+        return "It is Friday."
+    elif day == 7:
+        return "It is Saturday."
+    else:
+      return "Not a valid day."
 
 
+print(day_of_week(5))
+
+#---alternative
+def day_of_week(day):
+    match day:
+      case 1:
+          return "It is Sunday."
+      case 2:
+          return "It is Monday."
+      case 3:
+          return "It is Tuesday."
+      case 4:
+          return "It is Wednesday."
+      case 5:
+          return "It is Thursday."
+      case 6:
+          return "It is Friday."
+      case 7:
+          return "It is Saturday."
+      case _:
+        return "Not a valid day."
+
+print(day_of_week(6))
 
 
+def is_weekend(day):
+    match day:
+      case "Saturday" | "Sunday":
+          return True
+      case "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday":
+          return False
+      case _:
+        return False
 
-
+print(is_weekend("Monday"))
+'''
