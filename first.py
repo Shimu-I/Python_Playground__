@@ -1622,3 +1622,370 @@ def is_weekend(day):
 
 print(is_weekend("Monday"))
 '''
+
+#####################################################
+#Lesson 39: Modules 
+''' 
+A file containing code you want to include in your program use 'import' to include a module (built-in or your own)
+useful to break up a large program reusable separate files
+'''
+
+'''
+#list of modules
+#print(help("modules"))
+#print(help("math"))
+
+#import math
+#import math as m
+#from math import pi
+
+
+#print(math.pi)
+#print(m.pi)
+#print(pi)
+
+# name conflict for ---- from math import pi
+from math import pi
+a, b, c, d, e = 1, 2, 3, 4, 5
+
+print(e ** a)
+print(e ** b)
+print(e ** c)
+print(e ** d)
+print(e ** e)
+
+
+# correct way to write it is 
+import math
+
+a, b, c, d, e = 1, 2, 3, 4, 5
+
+print(math.e ** a)
+print(math.e ** b)
+print(math.e ** c)
+print(math.e ** d)
+print(math.e ** e)
+
+
+# creating my own new module named "example.py"
+import example
+
+result = example.pi
+result_1 = example.square(3)
+result_2 = example.cube(4)
+result_3 = example.circumference(3)
+result_4 = example.area(6)
+
+print(result)
+print(result_1)
+print(result_2)
+print(result_3)
+print(result_4)
+'''
+
+#######################################################
+# Lesson 40: Scope resolution
+''''
+Where a variable is visible and accessible
+scope resolution = (LEGB) Local -> Enclose -> Global -> Built-in
+order----------------------1st------ 2nd------ 3rd------- 4th 
+'''
+'''
+#local
+def func1():
+    x = 1
+    print(x)
+
+def func2():
+    x = 3
+    print(x)
+
+func1()
+func2()
+
+#enclose
+def func1():
+    x = 1
+    print(x)
+
+    def func2():
+        x = 3
+        print(x)
+    func2()
+
+func1()
+
+#enclose
+def func1():
+    x = 1
+    print(x)
+
+    def func2():
+        print(x)
+    func2()
+
+func1()
+
+#global --- outside of any function
+def func1():
+    print(x)
+
+def func2():
+    print(x)
+
+x = 3
+
+func1()
+func2()
+
+#built-in
+
+from math import e
+def function():
+    print(e)
+
+e = 3 
+function()
+'''
+
+###############################################
+# Lesson 41: if name == 'main'
+'''
+if__name__==__main__: (this script can be imported OR run standalone)
+Function and classes in this module can be reused
+without the main block of code executing
+Good practice ( code is modular, 
+                helps readability, 
+                leaves no global variables, 
+                avoid unintended execution)
+
+example library = Import library for functionality when running directly, display a help page
+
+'''
+
+'''
+if __name__=='__main__':
+  main()
+
+# we are using three python file for this lesson 
+# (script1.py and script2.py and python.py 
+# --- for script1.py and script2.py 
+# i have modified the run configuration)
+'''
+
+##########################################
+# Lesson 42: Python Banking Program
+'''
+
+def show_balance(balance):
+  print("***********************************")
+  print(f"Your balance is ${balance:.2f}")
+  print("***********************************")
+
+
+def deposit():
+  print("***********************************")
+  amount = float(input("Enter an amount to be deposited: "))
+  print("***********************************")
+
+  if amount < 0:
+    print("***********************************")
+    print("That's not a valid amount.")
+    print("***********************************")
+    return 0
+  else:
+    return amount
+
+
+def withdraw(balance):
+  print("***********************************")
+  amount = float(input("Enter an amount to be withdrawn: "))
+  print("***********************************")
+
+  if amount > balance:
+    print("***********************************")
+    print("Insufficient funds.")
+    print("***********************************")
+    return 0
+  elif amount < 0:
+    print("***********************************")
+    print("Amount must be greater than 0.")
+    print("***********************************")
+    return 0
+  else:
+    return amount
+
+def main():
+  balance = 0
+  is_running = True
+
+  while is_running:
+    print("***********************************")
+    print("          Banking Program.         ")
+    print("***********************************")
+    print("1. Show Balance")
+    print("2. Deposit")
+    print("3. Withdraw")
+    print("4. Exit")
+    print("***********************************")
+
+    choice = input("Enter your choice (1 - 4): ")
+
+    if choice == '1':
+      show_balance(balance)
+    elif choice == '2':
+      balance += deposit()
+    elif choice == '3':
+      balance -= withdraw(balance)
+    elif choice == '4':
+      is_running = False
+    else:
+      print("***********************************")
+      print("That is not a valid choice.")
+      print("***********************************")
+
+  print()
+  print("***********************************")
+  print("Thank you! Have a nice day.")
+  
+
+if __name__ == '__main__':
+    main()
+
+'''
+
+#####################################################
+# Lesson 43: Python Slot Machine
+# for inserting emoji = win + ;
+'''
+import random
+
+def spin_row():
+  symbols = ['🍒', '🍉', '🍋', '🔔', '⭐']
+
+  return [random.choice(symbols) for _ in range(3)]
+
+
+def print_row(row):
+  print("****************")
+  print(" | ".join(row))
+  print("****************")
+
+
+def get_payout(row, bet):
+  if row[0] == row[1] == row[2]:
+    if row[0] == '🍒':
+      return bet * 3
+    elif row[0] == '🍉':
+      return bet * 4
+    elif row[0] == '🍋':
+      return bet * 5
+    elif row[0] == '🔔':
+      return bet * 10
+    elif row[0] == '⭐':
+      return bet * 20
+    
+  return 0
+  
+
+def main():
+  balance = 100
+
+  print("*************************")
+  print("Welcome to Python Slots.")
+  print("Symbols: 🍒 🍉 🍋 🔔 ⭐")
+  print("*************************")
+
+  while balance > 0:
+    print(f"Current balance: ${balance}")
+
+    bet = input("Place your bet amount: ")
+
+    if not bet.isdigit():
+      print("Please enter a valid number.")
+      continue
+  
+    bet = int(bet)
+
+    if bet > balance:
+      print("Insufficient funds.")
+      continue
+
+    if bet <= 0:
+      print("Bet must me greater than 0.")
+      continue
+    
+    balance -= bet
+
+    row = spin_row()
+    print("Spinning....\n")
+    print_row(row)
+
+    payout = get_payout(row, bet)
+
+    if payout > 0:
+      print(f"You won ${payout}")
+    else:
+      print("Sorry you lost this round.")
+
+    balance += payout
+
+    play_again = input("Do you want to spin again? (Y/N): ").upper()
+    
+    if play_again != 'Y':
+      break
+
+  print("********************************************")
+  print(f"Game Over! Your final balance is ${balance}")
+  print("********************************************")
+
+
+if __name__ == '__main__':
+    main()
+'''
+
+####################################################
+# Lesson 44: Encryption Program
+
+'''
+import random
+import string
+
+chars = " " + string.punctuation + string.digits + string.ascii_letters 
+chars = list(chars)
+key = chars.copy()
+
+random.shuffle(key)
+
+#print(f"Chars: {chars}")
+#print(f"Key: {key}")
+
+#ENCRYPT
+plain_text = input("Enter a message to encrypt: ")
+cipher_text = " "
+
+for letter in plain_text:
+  index = chars.index(letter)
+  cipher_text += key[index]
+
+print(f"original massage: {plain_text}")
+print(f"encrypted message: {cipher_text}")
+
+
+#DECRYPT
+cipher_text = input("Enter a message to encrypt: ")
+plain_text = " "
+
+for letter in cipher_text:
+  index = key.index(letter)
+  plain_text += chars[index]
+
+
+print(f"encrypted message: {cipher_text}")
+print(f"original massage: {plain_text}")
+'''
+#...........06:07:25
+
+
+
+
